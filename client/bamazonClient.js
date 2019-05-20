@@ -1,7 +1,8 @@
-var mysql = require('mysql');
+const mysql = require('mysql');
 require('dotenv').config();
+const inquirer = require('inquirer')
 
-var connection = mysql.createConnection({
+const connection = mysql.createConnection({
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     user: process.env.DB_USER,
@@ -13,4 +14,4 @@ connection.connect(function(err){
     if(err) throw err;
     console.log("connected as id " + connection.threadId);
     connection.end();
-})
+});
