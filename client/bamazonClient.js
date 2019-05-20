@@ -1,6 +1,8 @@
 const mysql = require('mysql');
 require('dotenv').config();
-const inquirer = require('inquirer')
+const inquirer = require('inquirer');
+const Table = require('cli-table');
+
 
 const connection = mysql.createConnection({
     host: process.env.DB_HOST,
