@@ -2,6 +2,7 @@ const mysql = require('mysql');
 require('dotenv').config();
 const inquirer = require('inquirer');
 const Table = require('cli-table');
+const colors = require('colors');
 
 
 const connection = mysql.createConnection({
@@ -14,7 +15,7 @@ const connection = mysql.createConnection({
 
 connection.connect(function (err) {
     if (err) throw err;
-    console.log("connected as id " + connection.threadId);
+    console.log("connected as id ".red + connection.threadId);
     displayInventory()
 });
 let displayInventory = () => {
@@ -23,9 +24,9 @@ let displayInventory = () => {
         if (err) throw err
         for (let i = 0; i < res.length; i++) {
             console.log(" - - - - - - - - - - - - - - - ")
-            console.log("item number: " + res[i].item_id)
-            console.log("item: " + res[i].product_name)
-            console.log("price: $" + res[i].price)
+            console.log("Item number: ".rainbow + res[i].item_id)
+            console.log("Item: " + res[i].product_name)
+            console.log("Price: $" + res[i].price.bgMagenta)
         }
         purchase()
     })
