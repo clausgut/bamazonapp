@@ -72,10 +72,12 @@ let purchase = () => {
     }
     ])
         .then(function (purchase) {
+
             let item = purchase.item_id
             let quantity = purchase.quantity
 
             let queryStr = 'SELECT * FROM products WHERE ?';
+
 
             connection.query(queryStr, { item_id: item }, function (err, res) {
                 if (err) throw err
@@ -119,22 +121,20 @@ let purchase = () => {
                         // After 3 seconds display the inventory again so that the customer can make a new selcetion.
                         setTimeout(function () { displayInventory() }, 3000)
                     }
-
-
-                };
-                .then(function (answer) {
-                    connection.query("INSERT INTO products SET?", {
-                        item_number: answer.item_id,
-                        product_name: answer.product_name,
-                        department_name: answer.department_name,
-                        price: price,
-                    });
                 }
+
                 })
+                // .then(function (answer) {
+                //     connection.query("INSERT INTO products SET?", {
+                //         item_number: answer.item_id,
+                //         product_name: answer.product_name,
+                //         department_name: answer.department_name,
+                //         price: price,
+                //     });
 
-})
+            })
 
 
 
-        })
-}
+
+        }
