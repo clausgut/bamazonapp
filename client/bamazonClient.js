@@ -26,7 +26,7 @@ let displayInventory = () => {
             console.log(" - - - - - - - - - - - - - - - ")
             console.log("Item number: ".rainbow + res[i].item_id)
             console.log("Item: " + res[i].product_name)
-            console.log("Price: $" + res[i].price.bgMagenta)
+            console.log("Price".italic+ ":" + "$ ".cyan + res[i].price)
         }
         purchase()
     })
@@ -49,7 +49,7 @@ let purchase = () => {
     inquirer.prompt([{
         type: "input",
         name: "item_id",
-        message: "Select the item you would like to purchase by item number.",
+        message: "Select the desired product to purchase by id number.",
         validate: validateInput,
         filter: Number
     },
@@ -79,7 +79,7 @@ let purchase = () => {
                     let productInfo = res[0]
 
                     if (quantity <= productInfo.stock_quantity) {
-                        console.log(productInfo.product_name + "is in stock! Placing order now!")
+                        console.log(productInfo.product_name + " is in stock! Placing order now!")
                         console.log("\n")
 
                         // the updating query string
