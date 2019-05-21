@@ -20,13 +20,23 @@ connection.connect(function (err) {
 });
 let displayInventory = () => {
     //console.log("SQL Connection Established")
+
     connection.query("SELECT * FROM products", function (err, res) {
         if (err) throw err
         for (let i = 0; i < res.length; i++) {
             console.log(" - - - - - - - - - - - - - - - ")
-            console.log("Item number: ".rainbow + res[i].item_id)
-            console.log("Item: " + res[i].product_name)
-            console.log("Price".italic+ ":" + "$ ".cyan + res[i].price)
+            //console.log("Item number: ".rainbow + res[i].item_id)
+            //console.log("Item: " + res[i].product_name)
+            //console.log("Price".italic + ":" + "$ ".cyan + res[i].price)
+
+            const table = new Table();
+
+            table.push(
+                { "Item number: ": res[i].item_id }
+                , { "Item: ": res[i].product_name }
+                , { "Price: ": "$" + res[i].price }
+            );
+            console.log(table.toString());
         }
         purchase()
     })
@@ -111,8 +121,19 @@ let purchase = () => {
                     }
 
 
+                };
+                .then(function (answer) {
+                    connection.query("INSERT INTO products SET?", {
+                        item_number: answer.item_id,
+                        product_name: answer.product_name,
+                        department_name: answer.department_name,
+                        price: price,
+                    });
                 }
-            })
+                })
+
+})
+
 
 
         })
